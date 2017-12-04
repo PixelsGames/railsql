@@ -1,0 +1,88 @@
+<div class="container" id="tests-container">
+  <div class="row justify-content-around">
+    <div class="col-8">
+      <div id="question">
+        <div class="container question-page-js">
+          <div class="row justify-content-start">
+            <div class="col"><span id="lesson-name">Математика</span></div>
+            <div class="col">Вопрос №<span id="question-number-info">1</span></div>
+          </div>
+        </div>
+
+        <% @variants.each do |variant| %>
+          <% variant.questions.each do |question| %>
+            <div class="question-text question-text-hidden" id="<%= question.id %>">
+              <%= question.body %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div id="choices-container">
+        <% @variants.each do |variant| %>
+          <% variant.questions.each do |question| %>
+            <form class="choices-box choices-box-hidden" id="<%= question.id %>">
+              <% question.choices.each do |choice| %>
+                <label class="checkbox-container">
+                  <%= choice.body %>
+                  <input type="radio" name="radio" class="choice-input" id="<%= choice.id %>">
+                  <span class="checkmark"></span>
+                </label>
+              <% end %>
+            </form>
+          <% end %>
+        <% end %>
+        <div class="container">
+          <div class="row">
+            <div class="col-2 color-button" data-color="color-button-green" id="yes" >Уверен</div>
+            <div class="col-2 color-button" data-color="color-button-yellow" id="no">Не уверен</div>
+            <div class="col-2 color-button" data-color="color-button-red" id="dontknow">Не знаю</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div id="time" class="container">
+        <span>Осталось времени</span>
+        <div class="row justify-content-around">
+          <div id="hour-container" class="col">
+            <div id="hour" class="time-text">2</div>
+            <div class="time-name-text">Часа</div>
+          </div>
+          <div id="minute-container" class="col">
+            <div id="minute" class="time-text">0</div>
+            <div class="time-name-text">Минут</div>
+          </div>
+          <div id="second-container" class="col">
+            <div id="second" class="time-text">0</div>
+            <div class="time-name-text">Cекунд</div>
+          </div>
+        </div>
+      </div>
+      <div id="subjects-container">
+        <% @variants.each do |variant| %>
+          <div class="variant-info" data-id="<%= variant.id %>">
+            <div class="subject"><%= variant.lesson.name %></div>
+            <div class="question-numbers-container" >
+              <div class="container">
+                <% variant.questions.each_with_index do |question, i| %>
+                  <% if i % 5 == 0 %>
+                    <div class="row">
+                  <% end %>
+                    <div class="col question-numbers question-cell" id="<%= question.id %>">
+                      <%= i + 1 %>
+                    </div>
+                    <% if i % 5 == 4 %>
+                        </div>
+                    <% end %>
+              <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div id="end-test" data-url="<%= test_results_path %>">
+        Завершить тест
+      </div>
+    </div>
+  </div>
+</div>

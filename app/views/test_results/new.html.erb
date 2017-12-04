@@ -1,0 +1,68 @@
+<div class="container" id="start-test-container">
+  <div class="row justify-content-around">
+    <div class="col-8">
+      <div class="container">
+        <% i = 0 %>
+        <% while i < @lessons.count %>
+            <div class="row">
+              <div class="col subject-title">
+              <%= link_to test_result_path(@lessons[i]), class: 'dsubject-link-color' do %>
+                <div>
+                  <span><%= @lessons[i].name %></span>
+                </div>
+              <% end %>
+              </div>
+              <div class="col subject-title">
+                <% if @lessons[i + 1] %>
+                  <%= link_to test_result_path(@lessons[i + 1]), class: 'dsubject-link-color' do %>
+                    <div>
+                      <span><%= @lessons[i + 1].name %></span>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <span></span>
+                <% end %>
+              </div>
+            </div>
+            <% i += 2 %>
+        <% end %>
+
+
+      </div>
+    </div>
+    <div class="col-4">
+      <%= simple_form_for :test_result_sample, url: test_result_path('blank'), method: :get,
+                            html: { id: 'start-test', class: 'container' } do |f| %>
+
+        <span id="complex-test-text">Комплексное тестирование ЕНТ КТА</span>
+        <div class="selectParent">
+          <div id="choose-subject-text">Выберите пятый предмет</div>
+            <br>
+            <%=   f.input :lesson,
+                          as: :select,
+                          multiple: false,
+                          label: false,
+                          include_blank: false,
+                          collection: Lesson.optional.map{ |x| [ x.name, x.id] },
+                          input_html: { class: 'new-result-test-select' } %>
+        </div>
+        <span id="time-left-text">Осталось времени</span>
+        <div class="row justify-content-around">
+          <div id="total-hour-container" class="col">
+            <div id="total-hour" class="total-time-text">2</div>
+            <div class="total-time-name-text">Часа</div>
+          </div>
+          <div id="total-minute-container" class="col">
+            <div id="total-minute" class="total-time-text">0</div>
+            <div class="total-time-name-text">Минут</div>
+          </div>
+          <div id="total-second-container" class="col">
+            <div id="total-second" class="total-time-text">0</div>
+            <div class="total-time-name-text">Cекунд</div>
+          </div>
+        </div>
+        <%= f.button :submit, 'Начать', id: 'start-test-button' %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div id="profile-container">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-7" id="one-subject-results">
+        <h5>По одному предмету</h5>
+        <table>
+          <thead>
+          <tr>
+            <th>Предмет</th>
+            <th>Дата</th>
+            <th>Баллы</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @single_resutls.each do |test_result| %>
+            <tr>
+              <% finished_variant = test_result.finished_variants.first %>
+              <td><%= finished_variant.variant.lesson.name %></td>
+              <td><%= test_result.created_at.time.strftime("%d.%m.%Y") %></td>
+              <td><%= AnswerStatistics.corrects_number(finished_variant) %>/25</td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-4" id="user-info">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col user-info-fields">
+              <div class="user-info-title">Имя</div>
+              <div class="user-info-text"><%= current_user.name %></div>
+            </div>
+            <div class="col user-info-fields">
+              <div class="user-info-title">Фамилия</div>
+              <div class="user-info-text"><%= current_user.surname %></div>
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col user-info-fields">
+              <div class="user-info-title">Email</div>
+              <div class="user-info-text"><%= current_user.email %></div>
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col user-info-fields">
+              <div class="user-info-title">Регион</div>
+              <div class="user-info-text"><%= current_user.city.name %></div>
+            </div>
+            <div class="col user-info-fields">
+              <div class="user-info-title">№/Название школы</div>
+              <div class="user-info-text"><%= current_user.school.name %></div>
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col user-info-fields">
+              <div class="user-info-title">Номер телефона</div>
+              <div class="user-info-text"><%= current_user.phone %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-between">
+      <div id="complex-subject-results" class="col-7">
+        <h5>По комплексному тестированию</h5>
+        <table>
+          <thead>
+          <tr>
+            <th>Предмет</th>
+            <th>Дата</th>
+            <th>Баллы</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @complex_resutls.each do |test_result| %>
+              <tr>
+                <td><%= AnswerStatistics.get_optional_lesson(test_result).name %></td>
+                <td><%= test_result.created_at.time.strftime("%d.%m.%Y") %></td>
+                <td><%= AnswerStatistics.test_result_number(test_result) %>/125</td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

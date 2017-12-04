@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ent5</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': false %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': false %>
+  </head>
+
+  <body>
+    <div class="notice-base"><%= notice %></div>
+    <div class="alert-base"><%= alert %></div>
+    <header>
+      <div id="top-blue-line"></div>
+      <div id="header-container">
+      <div class="container" id="header">
+          <% if current_user %>
+          <div class="row justify-content-between">
+            <div class="col">
+                <div class="row" id="profile-info">
+                    <div class="col" id="image-container">
+                        <div id="image">
+                          <%= gravatar_image_tag(current_user.email)  %>
+                        </div>
+                    </div>
+                    <div id="info" class="col-9">
+                        <div id="name"><%= "#{current_user.name} #{current_user.surname}" %></div>
+                        <div id="school"><%= current_user.school.name %></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-4 col-sm-2" id="tests_profile">
+                <div class="container">
+                  <div class="row justify-content-center">
+                    <div id="tests" class="col tab-container">
+                        <%= link_to new_test_result_path, class: 'no-decoration' do %>
+                          <% unless current_page?(profile_test_result_path(current_user)) %>
+                             <% first_class = 'overlay-base-active' %>
+                             <% second_class = 'tab-page-active' %>
+                          <% end %>
+
+                          <div class='overlay-base <%= first_class %>'>
+                            <div class="tab tab-page <%= second_class %>">
+                              <%= image_tag 'base/graduation-cap.png' %>
+                              <h5>Тесты</h5>
+                            </div>
+                          </div>
+                      <% end %>
+                    </div>
+                    <div id="profile" class="col tab-container">
+                        <%= link_to profile_test_result_path(current_user), class: 'no-decoration' do %>
+                          <% if current_page?(profile_test_result_path(current_user)) %>
+                            <% first_class = 'overlay-base-active' %>
+                            <% second_class = 'tab-page-active' %>
+                          <% end %>
+                          <div class='overlay-base <%= first_class %>'>
+                            <div class="tab tab-page <%= second_class %>">
+                              <%= image_tag 'base/user.png' %>
+                              <h5>Профиль</h5>
+                            </div>
+                          </div>
+                        <% end %>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="col tab-container" id="logout">
+            <div class="tab tab-page">
+              <%= image_tag 'base/logout.png' %>
+              <h5><%= link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'exit-link' %></h5>
+            </div>
+          </div>
+      </div>
+    <% end %>
+    </div>
+    </div>
+    </header>
+  <%= yield %>
+    <footer>
+      <div id="footer-text">©2017 ENT TEST Торговые марки принадлежат их владельцам. Все права защищены.</div>
+    </footer>
+  </body>
+</html>

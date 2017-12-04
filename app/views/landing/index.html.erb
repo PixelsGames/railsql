@@ -1,0 +1,100 @@
+<div class="main" id="section1">
+  <div class="main" id="overlay-landing">
+    <div id="menu-container">
+      <div id="menu">
+        <div id="icon">
+          <%= image_tag 'landing/lighting-button.png', id: 'icon' %>
+        </div>
+        <div id="authe">
+          <a href="#registrationModal" id="register" data-toggle="modal">Зарегистрироваться</a>
+          <span id="line">|</span>
+          <a href="#loginModal" id="login" data-toggle="modal">Войти</a>
+        </div>
+      </div>
+    </div>
+    <div id="header-container-langing">
+      <div id="header-landing">
+        <div><h1>Онлайн тестирование в новом формате ЕНТ</h1></div>
+        <div id="text1">Мы предоставляем возможность проходить бесплатное тестирование на нашем сайте совершенно бесплатно. Регистрируйтесь, проходите тесты и отслеживайте свой прогресс.</div>
+        <button id="button1" data-toggle="modal" data-target="#registrationModal">НАЧАТЬ</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section_container" id="section2">
+  <div class="section">
+    <div>
+      <h2>Отслеживайте свой прогресс</h2>
+      <div class="text">С 2017 года единое национальное тестирование разделят на два этапа.
+        Первый этап - экзамены в школе, которые будут сдавать все ученики 11 класса. Второй
+        этап - тестирование в новом формате, для поступления в вышие учебные заведения, в том числе и для участия в конкурсе образовательных грантов</div>
+      <a href="" class="more">Подробнее</a>
+    </div>
+    <div>
+      <%= image_tag 'landing/section2.png', class: 'img_section' %>
+    </div>
+  </div>
+</div>
+<div class="section_container" id="section3">
+  <div class="section">
+    <div>
+      <%= image_tag 'landing/section3.png', class: 'img_section' %>
+    </div>
+    <div>
+      <h2>Проходите тесты по предметам</h2>
+      <div class="text">Выбирете предмет, и проходите по нему тесты каждый день</div>
+      <a href="" class="more">Подробнее</a>
+    </div>
+  </div>
+</div>
+<div class="section_container" id="section4">
+  <div class="section">
+    <div>
+      <h2>База тестов</h2>
+      <div class="text">У нас самая актуальная база тестов от Министерства Образования.</div>
+      <a href="" class="more">Подробнее</a>
+    </div>
+    <div>
+      <%= image_tag 'landing/section4.png', class: 'img_section' %>
+    </div>
+  </div>
+</div>
+<div class="main" id="footer_container-landing">
+  <div id="footer-landing">
+    <div id="text-footer">
+      <div class="text"><h5>Создайте свой личный кабинет и готовьтесь к ЕНТ с нами</h5></div>
+      <button class="button2" data-toggle="modal" data-target="#registrationModal">Создать</button>
+      <h5 id="text1">У Вас есть вопросы или пожелания?</h5>
+    </div>
+    <div id="contact-info">
+      <%= simple_form_for @order, html: { id: 'order-form' }, remote: true do |f| %>
+          <div id="name_and_email">
+            <div class="container">
+              <%= f.input :guest_name, label: 'Имя' %>
+            </div>
+            <div class="container">
+              <%= f.input :email,
+                          label: 'Почта'
+              %>
+            </div>
+          </div>
+          <div class="container">
+            <%= f.input :message,
+                        as: :text,
+                        label: 'Сообщение',
+                        :input_html => { id: 'comment', :rows => 10 }
+            %>
+          <%= f.button :submit, 'Отправить заявку',class: 'button2', id: 'order-create-js' %>
+          </div>
+      <% end %>
+      <div id="info-landing">
+        <div><h4>Другие способы связи</h4></div>
+        <div>Телефон: +7 707 777 77 77 </div>
+        <div>Skype: ent-test-online</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'landing/login-modal' %>
+<%= render 'landing/registration-modal' %>
